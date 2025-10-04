@@ -51,9 +51,9 @@ def fetch_grp(raw_address: str) -> str:
 
     for ds in all_wa_grps:
         if is_match(ds, district):
-            return all_wa_grps[ds]
+            return all_wa_grps[ds], ds
 
-    return all_wa_grps["sathyagyanam kerala (common group)"]
+    return all_wa_grps["sathyagyanam kerala (common group)"], "sathyagyanam kerala (common group)"
 
 MESSAGE_TEMPLATE = """
 🙏 
@@ -66,8 +66,8 @@ Join our WhatsApp group for meaningful discussions on the book GYAN GANGA.
 """.strip()
 
 def build_wa_message_content(raw_address: str) -> str:
-    wa_grp = fetch_grp(raw_address)
-    return MESSAGE_TEMPLATE.format(wa_grp=wa_grp)
+    wa_grp, district = fetch_grp(raw_address)
+    return MESSAGE_TEMPLATE.format(wa_grp=wa_grp), district
 
 
 class CsRecordSchema(BaseModel):
@@ -77,10 +77,11 @@ class CsRecordSchema(BaseModel):
     assignee: Optional[str] = None
     remarks: Optional[str] = None
     wa_message: Optional[str] = None
+    wa_grp: Optional[str] = None
 
     @model_validator(mode='after')
     def set_wa_message(self) -> 'CsRecordSchema':
-        self.wa_message = build_wa_message_content(raw_address=self.address)
+        self.wa_message, self.wa_grp = build_wa_message_content(raw_address=self.address)
         return self
 
 

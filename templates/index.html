@@ -20,23 +20,36 @@
             }
 
             .container {
-                max-width: 960px;
-                margin: 50px auto;
-                padding: 30px;
+                max-width: 95%;
+                margin: 20px auto;
+                padding: 15px;
             }
 
             .header {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                margin-bottom: 2rem;
+                margin-bottom: 1.5rem;
+                flex-wrap: wrap;
+                gap: 10px;
             }
 
             h1 {
-                font-weight: 600;
-                font-size: 2rem;
+                font-weight: 700;
+                font-size: 1.8rem;
                 margin: 0;
                 color: #4caf50;
+            }
+
+            h2 {
+                font-weight: 600;
+                font-size: 1.2rem;
+                color: #fff;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
             }
 
             form label {
@@ -46,21 +59,22 @@
             }
 
             .form-control {
-                background: #1a1c23;
-                border: 1px solid #2a2d37;
-                border-radius: 8px;
+                background: #000000ff;
+                border: 1px solid #2f3240;
+                border-radius: 10px;
                 color: #e0e0e0;
                 padding: 10px 12px;
-                transition: border 0.2s;
+                transition: border 0.2s, background 0.2s;
             }
 
             .form-control:focus {
                 border-color: #4caf50;
                 box-shadow: none;
+                background: #1e2028;
             }
 
             .btn {
-                border-radius: 8px;
+                border-radius: 10px;
                 font-weight: 500;
                 padding: 0.5rem 1rem;
                 transition: all 0.2s;
@@ -87,48 +101,62 @@
             }
 
             .alert {
-                background-color: #1a1c23;
-                border: 1px solid #2a2d37;
-                border-radius: 8px;
+                background-color: #1b1d25;
+                border: 1px solid #2f3240;
+                border-radius: 10px;
                 padding: 12px 16px;
                 color: #e0e0e0;
+                margin-bottom: 15px;
             }
 
             .badge {
                 background-color: #4caf50;
                 color: #fff;
-                font-size: 0.85rem;
-                padding: 0.3em 0.7em;
+                font-size: 0.8rem;
+                padding: 0.25em 0.5em;
                 border-radius: 8px;
             }
 
             .entry-card {
-                background-color: #1a1c23;
-                border: 1px solid #2a2d37;
+                background-color: #11131b;
+                border: 1px solid #2f3240;
                 border-radius: 12px;
-                padding: 16px;
-                margin-bottom: 16px;
+                padding: 15px;
+                margin-bottom: 12px;
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
+                align-items: flex-start;
+                flex-wrap: wrap;
+                gap: 10px;
                 transition: background 0.2s, transform 0.2s;
             }
 
             .entry-card:hover {
-                background-color: #21232b;
+                background-color: #101117;
             }
 
             .entry-info p {
-                margin: 2px 0;
-                font-size: 0.95rem;
+                margin: 3px 0;
+                font-size: 0.9rem;
                 color: #cfd8dc;
+                word-break: break-word;
+            }
+
+            .entry-info p.status {
+                color: #4caf50;
+                font-weight: 600;
+            }
+
+            .entry-info p.wa-message {
+                color: #00bcd4;
+                font-weight: 500;
             }
 
             .entry-action .btn-success {
                 background-color: #25d366;
                 border: none;
-                border-radius: 6px;
-                padding: 0.35rem 0.8rem;
+                border-radius: 8px;
+                padding: 0.4rem 0.9rem;
                 font-size: 0.85rem;
                 font-weight: 500;
             }
@@ -136,14 +164,50 @@
             .entry-action .btn-success:hover {
                 background-color: #1ebe57;
             }
+
+            .entry-action a {
+                display: inline-block;
+            }
+
+            @media (max-width: 768px) {
+                .entry-card {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+
+                .entry-action {
+                    width: 100%;
+                }
+
+                .entry-action a {
+                    width: 100%;
+                    text-align: center;
+                }
+
+                h1 {
+                    font-size: 1.6rem;
+                }
+
+                h2 {
+                    font-size: 1.1rem;
+                }
+
+                .form-control {
+                    padding: 8px 10px;
+                }
+
+                .btn {
+                    width: 100%;
+                    text-align: center;
+                    padding: 0.45rem 0;
+                }
+            }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="header">
-                <h1>
-                    <a href="/"> CS Records </a>
-                </h1>
+                <h1><a href="/">CS Records</a></h1>
                 <div></div>
             </div>
 
@@ -190,7 +254,13 @@
                                 <strong>Mobile:</strong> {{ entry.mobile_no }}
                             </p>
                             <p><strong>Address:</strong> {{ entry.address }}</p>
-                            <p><strong>Status:</strong> {{ entry.status }}</p>
+                            <p class="wa-message">
+                                <strong>Whatsapp Group:</strong> {{
+                                entry.wa_grp.upper() }}
+                            </p>
+                            <p class="status">
+                                <strong>Status:</strong> {{ entry.status }}
+                            </p>
                             <p>
                                 <strong>Assignee:</strong> {{ entry.assignee }}
                             </p>
