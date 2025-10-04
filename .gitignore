@@ -1,5 +1,7 @@
 __pycache__
-.env
-.xlsx
-.json
-.txt
+*.env
+*.xlsx
+*.txt
+data/*
+uploads
+
